@@ -5,7 +5,7 @@ class Prouct(models.Model):
     title = models.CharField(max_length=155, verbose_name='Заголовок')
     description = models.TextField(verbose_name='Описание товара')
     price = models.CharField(max_length=15, verbose_name='Цена')
-    category = models.ForeignKey(Category, on_delete=models.PROTECT, related_name='products')
+    category = models.ForeignKey(Category, on_delete=models.PROTECT, related_name='products', blank=True, null=True)
     is_active = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата создание')
 
@@ -17,7 +17,7 @@ class Prouct(models.Model):
         verbose_name_plural = 'Продукты'
 
 class ProductImage(models.Model):
-    product = models.ForeignKey(Prouct, on_delete=models.CASCADE, related_name='img')
+    product = models.ForeignKey(Prouct, on_delete=models.CASCADE, related_name='images')
     image = models.ImageField(upload_to='products/')
     sort = models.PositiveIntegerField(default=0, verbose_name='Сортировка')
 

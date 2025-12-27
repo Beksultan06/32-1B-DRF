@@ -1,32 +1,28 @@
 from django.shortcuts import render
-from rest_framework.generics import ListAPIView, CreateAPIView, RetrieveAPIView, UpdateAPIView, DestroyAPIView
+from rest_framework import mixins
+from rest_framework.viewsets import GenericViewSet
 
 from apps.settings.models import Category, Models
 from apps.settings.serailizers import CategorySerializer, ModelsSerializers
 
-class CategoryAPIView(ListAPIView):
+class CategoryViewSet(
+        mixins.ListModelMixin,
+        mixins.CreateModelMixin,
+        mixins.RetrieveModelMixin,
+        mixins.UpdateModelMixin,
+        mixins.DestroyModelMixin,
+        GenericViewSet
+    ):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
 
-class CategoryCreateAPIView(CreateAPIView):
-    queryset = Category.objects.all()
-    serializer_class = CategorySerializer
-
-class CategoryRetrieveAPIView(RetrieveAPIView):
-    queryset = Category.objects.all()
-    serializer_class = CategorySerializer
-    lookup_field = "id"
-
-class CategoryUpdateAPIView(UpdateAPIView):
-    queryset = Category.objects.all()
-    serializer_class = CategorySerializer
-    lookup_field = "id"
-
-class CategoryDeleteAPIView(DestroyAPIView):
-    queryset = Category.objects.all()
-    serializer_class = CategorySerializer
-    lookup_field = "id"
-
-class ModelsAPIView(ListAPIView):
+class ModelsViewSet(
+        mixins.ListModelMixin,
+        mixins.CreateModelMixin,
+        mixins.RetrieveModelMixin,
+        mixins.UpdateModelMixin,
+        mixins.DestroyModelMixin,
+        GenericViewSet
+    ):
     queryset = Models.objects.all()
     serializer_class = ModelsSerializers

@@ -10,6 +10,7 @@ from apps.product.cache import build_cache_key
 from rest_framework import mixins
 from rest_framework.viewsets import GenericViewSet
 from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
 
 class ProductViewSet(
         GenericViewSet, 
@@ -25,6 +26,7 @@ class ProductViewSet(
     search_fields = ("title", )
     ordering = ("-created_at", )
     lookup_field = "id"
+    permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
         images_qs = ProductImage.objects.order_by("sort", "id")

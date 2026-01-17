@@ -30,4 +30,15 @@ class AuthViewSet(mixins.CreateModelMixin, GenericViewSet):
             status=status.HTTP_200_OK
         )
 
- 
+    @action(
+        detail=False,
+        methods=['post'],
+        url_path='reset-password-confirm',
+        serializer_class=ResetPasswordConfirmSerializer
+    )
+    def reset_password_confgirm(self, request):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response({"detail" : "Пароль успешно изменен"}, 
+        status=status.HTTP_200_OK)

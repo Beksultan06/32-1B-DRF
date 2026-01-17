@@ -11,4 +11,4 @@ urlpatterns = [
     path('users/refresh', TokenRefreshView.as_view())
 ]
 
-urlpatterns = router.urls
+urlpatterns += router.urls

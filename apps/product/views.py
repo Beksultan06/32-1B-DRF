@@ -26,7 +26,7 @@ class ProductViewSet(
     search_fields = ("title", )
     ordering = ("-created_at", )
     lookup_field = "id"
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
         images_qs = ProductImage.objects.order_by("sort", "id")

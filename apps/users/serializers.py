@@ -2,7 +2,7 @@ from rest_framework import serializers
 from apps.users.models import User
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
-from django.utils.http import urlsafe_base64_encode
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_str, force_bytes
 from django.core.mail import send_mail
 
@@ -36,7 +36,10 @@ class ResetPasswordSerializer(serializers.Serializer):
         uid = urlsafe_base64_encode(force_bytes(user.pk))
         token = PasswordResetTokenGenerator().make_token(user)
 
-        reset_link = f"http://127.0.0.1:9000/reset-password?uid={uid}&token={token}"
+        reset_link = (
+            f"http://127.0.0.1:9000/api/v1/users/reset-password-confirm/"
+            f"?uid={uid}&token={token}"
+        )
         print("RESET LINK:", reset_link)
 
         send_mail(
